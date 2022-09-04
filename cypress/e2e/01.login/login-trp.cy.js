@@ -1,28 +1,74 @@
-context('Actions', () => {
-    beforeEach(() => {
-        cy.visit('https://trpdemo.dto.technology/login')
-    })
+context("Actions", () => {
+  beforeEach(() => {
+    cy.visit("https://trpdemo.dto.technology");
+  });
 
-    it('login-admin user correct', () => {
-        cy.get('.text-3xl').should('contain', 'CMU TRP')
-        cy.get('#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(1)').type('Admin')
-        cy.get('#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(2)').type('admin')
-        cy.get('#app > div > div > div > div > div.px-6.py-4 > form > div.mt-4.flex.items-center.justify-between > button').click()
+  function loginFarmer(userName, password) {
+    if (userName == "Farmer") {
+      cy.get(
+        "#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(1)"
+      ).type("Farmer");
+    } else {
+      cy.get(
+        "#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(1)"
+      ).type("farmerUserFailed");
+    }
 
-    })
+    if (password == "Farmer") {
+      cy.get(
+        "#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(2)"
+      ).type("Farmer");
+    } else {
+      cy.get(
+        "#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(2)"
+      ).type("farmerPasswordFailed");
+    }
+  }
+  function loginAdmin(userName, password) {
+    if (userName == "Admin") {
+      cy.get(
+        "#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(1)"
+      ).type("Admin");
+    } else {
+      cy.get(
+        "#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(1)"
+      ).type("adminUserFailed");
+    }
 
-    it('login-admin password correct', () => {
-        cy.get('.text-3xl').should('contain', 'CMU TRP')
-        cy.get('#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(1)').type('in')
-        cy.get('#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(2)').type('in')
-        cy.get('#app > div > div > div > div > div.px-6.py-4 > form > div.mt-4.flex.items-center.justify-between > button').click()
-    })
+    if (password == "Admin") {
+      cy.get(
+        "#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(2)"
+      ).type("Admin");
+    } else {
+      cy.get(
+        "#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(2)"
+      ).type("adminPasswordFailed");
+    }
+  }
 
-    it('login-admin user and password correct ', () => {
-        cy.get('.text-3xl').should('contain', 'CMU TRP')
-        cy.get('#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(1)').type('Admin')
-        cy.get('#app > div > div > div > div > div.px-6.py-4 > form > div:nth-child(2)').type('admin')
-        cy.get('#app > div > div > div > div > div.px-6.py-4 > form > div.mt-4.flex.items-center.justify-between > button').click()
-    })
+  function clickjogin(bthLogin) {
+    cy.get(
+      "#app > div > div > div > div > div.px-6.py-4 > form > div.mt-4.flex.items-center.justify-between > button"
+    ).click();
+  }
 
-})
+    it('Farmer login success', () => {
+      loginFarmer("Farmer" , "Farmer")
+      clickjogin()
+    });
+
+    it('Admin login success', () => {
+      loginAdmin("Admin" , "Admin")
+      clickjogin()
+    });
+
+  it("Faemer login failed", () => {
+    loginFarmer();
+    clickjogin();
+  });
+
+  it("Admin login failed", () => {
+    loginAdmin();
+    clickjogin();
+  });
+});
